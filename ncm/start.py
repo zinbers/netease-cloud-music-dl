@@ -17,7 +17,12 @@ api = CloudApi()
 
 def download_hot_songs(artist_id):
     songs = api.get_hot_songs(artist_id)
-    folder_name = format_string(songs[0]['artists'][0]['name']) + ' - hot50'
+    art_name='NULL'
+    for art_info in songs[0]['artists']:
+        if art_info['id'] == int(artist_id):
+            art_name=art_info['name']
+            break
+    folder_name = format_string(art_name) + ' - hot50'
     folder_path = os.path.join(config.DOWNLOAD_DIR, folder_name)
     download_count = config.DOWNLOAD_HOT_MAX if (0 < config.DOWNLOAD_HOT_MAX < 50) else config.DOWNLOAD_HOT_MAX_DEFAULT
     for i, song in zip(range(download_count), songs):
