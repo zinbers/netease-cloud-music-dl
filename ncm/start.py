@@ -9,6 +9,7 @@ from ncm.downloader import get_song_info_by_id
 from ncm.downloader import download_song_by_id
 from ncm.downloader import download_song_by_song
 from ncm.downloader import format_string
+import time
 
 # load the config first
 config.load_config()
@@ -44,6 +45,7 @@ def download_playlist_songs(playlist_id):
     folder_name = format_string(playlist_name) + ' - playlist'
     folder_path = os.path.join(config.DOWNLOAD_DIR, folder_name)
     for i, song in enumerate(songs):
+        time.sleep(3)
         song_detail = get_song_info_by_id(song['id'])
         print('{}: {}'.format(i + 1, song_detail['name']))
         download_song_by_song(song_detail, folder_path, False)
